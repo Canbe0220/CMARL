@@ -30,7 +30,6 @@ class DualAttentionNetwork(nn.Module):
         num_heads_OAB_per_layer = [1] + self.num_heads_OAB
         num_heads_MAB_per_layer = [1] + self.num_heads_MAB
 
-        # mid_dim = [self.embedding_output_dim] * (self.num_dan_layers - 1)
         mid_dim = self.output_dim_per_layer[:-1]
 
         j_input_dim_per_layer = [self.fea_j_input_dim] + mid_dim
@@ -73,7 +72,6 @@ class DualAttentionNetwork(nn.Module):
         :param op_mask: false at all real same-job operation pairs [B, N, N]
         :param fea_m: machine features [B, M, 8]
         :param mch_mask: unscheduled operation-machine compatibility [B, N, M]
-        :param comp_idx: original DANIEL competition tensor, retained for API compatibility
         :return:
             fea_j.shape = [sz_b, N, output_dim]
             fea_m.shape = [sz_b, M, output_dim]
@@ -98,7 +96,6 @@ class DualAttentionNetwork(nn.Module):
 class CMARL(nn.Module):
     def __init__(self, config):
         """
-            The implementation of the proposed learning framework for fjsp
         :param config: a package of parameters
         """
         super(CMARL, self).__init__()

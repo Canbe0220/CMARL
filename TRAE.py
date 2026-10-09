@@ -14,7 +14,7 @@ class SingleOpAttnBlock(nn.Module):
         self.dropout = nn.Dropout(dropout_prob)
 
     def forward(self, h, op_mask):
-        # op_mask[b,i,k] is true if operation k is unavailable to query i.
+        
         wh = h @ self.W
         d = wh.shape[-1]
         source = (wh @ self.a[:d]).squeeze(-1)
@@ -63,7 +63,7 @@ class SingleMchAttnBlock(nn.Module):
         valid = operation_machine_adj.transpose(1, 2).bool()
         weights = F.softmax(scores.masked_fill(~valid, -1e9), dim=-1)
         weights = self.dropout(weights * valid.to(weights.dtype))
-        # Retain the machine's own representation even if it has no neighbors.
+        
         return machine + weights @ operation
 
 

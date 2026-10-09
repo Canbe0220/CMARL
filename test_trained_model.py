@@ -19,7 +19,6 @@ test_time = time.strftime("%Y%m%d_%H%M%S", time.localtime(time.time()))
 
 def test_greedy_strategy(data_set, model_path, seed):
     """
-        test the model on the given data using the greedy strategy
     :param data_set: test data
     :param model_path: the path of the model file
     :param seed: the seed for testing

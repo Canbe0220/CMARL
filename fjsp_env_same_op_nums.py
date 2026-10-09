@@ -9,9 +9,7 @@ import torch
 
 @dataclass
 class EnvState:
-    """
-        state definition
-    """
+
     fea_j_tensor: torch.Tensor = None
     op_mask_tensor: torch.Tensor = None
     fea_m_tensor: torch.Tensor = None
@@ -26,7 +24,6 @@ class EnvState:
     def update(self, fea_j, op_mask, fea_m, mch_mask, dynamic_pair_mask,
                comp_idx, candidate, fea_pairs, operation_machine_adj):
         """
-            update the state information
         :param fea_j: input operation feature vectors with shape [sz_b, N, 10]
         :param op_mask: full same-job attention mask [sz_b, N, N]
         :param fea_m: input operation feature vectors with shape [sz_b, M, 8]
@@ -120,8 +117,6 @@ class FJSPEnvForSameOpNums:
 
     def set_initial_data(self, job_length_list, op_pt_list):
         """
-            initialize the data of the instances
-
         :param job_length_list: the list of 'job_length'
         :param op_pt_list: the list of 'op_pt'
         """
@@ -175,9 +170,6 @@ class FJSPEnvForSameOpNums:
 
         self.op_pt = ma.array(self.op_pt, mask=self.reverse_process_relation)
 
-        """
-            compute operation raw features
-        """
         self.op_mean_pt = np.mean(self.op_pt, axis=2).data
 
         self.op_min_pt = np.min(self.op_pt, axis=-1).data
@@ -213,9 +205,7 @@ class FJSPEnvForSameOpNums:
         self.init_quality = np.max(self.op_ct_lb, axis=1)
 
         self.max_endTime = self.init_quality
-        """
-            compute machine raw features
-        """
+
         self.mch_available_op_nums = np.copy(self.compatible_mch)
         self.mch_current_available_op_nums = np.copy(self.compatible_mch)
         # [E, J, M]
@@ -275,7 +265,7 @@ class FJSPEnvForSameOpNums:
         self.candidate_process_relation = np.copy(self.old_candidate_process_relation)
         self.mch_current_available_op_nums = np.copy(self.old_mch_current_available_op_nums)
         self.mch_current_available_jc_nums = np.copy(self.old_mch_current_available_jc_nums)
-        # copy the old state
+
         self.state = copy.deepcopy(self.old_state)
         return self.state
 
@@ -286,7 +276,7 @@ class FJSPEnvForSameOpNums:
         self.step_count = 0
         # the array that records the makespan of all environments
         self.current_makespan = np.full(self.number_of_envs, float("-inf"))
-        # the complete time of operations ([E,N])
+
         self.op_ct = np.zeros((self.number_of_envs, self.number_of_ops))
         self.mch_free_time = np.zeros((self.number_of_envs, self.number_of_machines))
         self.mch_remain_work = np.zeros((self.number_of_envs, self.number_of_machines))
@@ -323,7 +313,6 @@ class FJSPEnvForSameOpNums:
 
     def step(self, actions):
         """
-            perform the state transition & return the next state and reward
         :param actions: the action list with shape [E]
         :return: the next state, reward and the done flag
         """
