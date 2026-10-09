@@ -86,6 +86,12 @@ python test_trained_model.py --device cuda --model_source SD1 --data_source Benc
 
 The benchmark results are saved under `test_results/BenchData/Brandimarte/` with the same CMARL(G)/CMARL(S) naming convention. Other benchmark families can be selected through `--test_data`.
 
-## Credits
+## Acknowledgments
 
-The project adapts the [DANIEL codebase](https://github.com/wrqccc/FJSP-DRL). See that repository for the original implementation and its dependencies.
+This repository builds on the following open-source implementations:
+
+- https://github.com/XiangjieXiao/ReSched
+- https://github.com/wrqccc/FJSP-DRL
+- https://github.com/songwenas12/fjsp-drl
+- https://github.com/zcaicaros/L2D
+- https://github.com/google/or-tools
